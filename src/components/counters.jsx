@@ -2,36 +2,20 @@ import React, { Component } from 'react';
 import Counter from './counter';
 
 class Counters extends Component {
-  state = {
-    counters: [
-      { id: 1, value: 5 },
-      { id: 2, value: 0 },
-      { id: 3, value: 2 },
-      { id: 4, value: 0 },
-    ],
-  };
-
-  incrementHandler = (counter) => {
-    const counters = [...this.state.counters];
-    const index = counters.indexOf(counter);
-    counters[index].value++;
-    this.setState({ counters });
-  };
-
-  deleteHandler = (countrID) => {
-    console.log(countrID);
-    const counters = this.state.counters.filter((item) => item.id !== countrID);
-    this.setState({ counters });
-  };
-
   render() {
     return (
       <div>
-        {this.state.counters.map((item) => (
+        <button
+          onClick={this.props.onReset}
+          className="btn btn-primary btn-sm m-2"
+        >
+          Reset
+        </button>
+        {this.props.counters.map((item) => (
           <Counter
             key={item.id}
-            onDelete={this.deleteHandler}
-            onIncrement={this.incrementHandler}
+            onDelete={this.props.onDelete}
+            onIncrement={this.props.onIncrement}
             counter={item}
           />
         ))}
